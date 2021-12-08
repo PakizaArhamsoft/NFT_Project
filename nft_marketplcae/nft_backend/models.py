@@ -104,7 +104,8 @@ class Contact(models.Model):
     message = models.TextField(null=True)
     date = models.DateTimeField(auto_now=True)
     is_responded = models.BooleanField(default=False)
-    resolved_by = models.ForeignKey(CustomUser, related_name="resolved_user", on_delete=models.CASCADE, null=True)
+    # field issue resolved by staff member
+    resolved_by = models.ForeignKey(User, related_name="resolved_user", on_delete=models.CASCADE, null=True)
 
 
 class FAQ(models.Model):
@@ -113,4 +114,6 @@ class FAQ(models.Model):
     last_update = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
     category = models.TextField(null=True)
+    # field issue resolved by staff member
+    resolved_by = models.ForeignKey(User, related_name="resolved_user", on_delete=models.CASCADE, null=True)
 
