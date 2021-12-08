@@ -39,9 +39,12 @@ class Item(models.Model):
     price = models.FloatField(null=True)
     royality = models.FloatField(null=True)
     created_date = models.DateTimeField(auto_now=True)
-    is_put_on_sale = models.BooleanField(default=True)
-    is_instant_sale_price = models.BooleanField(default=False)
-    is_unlock_purchase = models.BooleanField(default=False)
+    choices = [
+        ("is_put_on_sale", "Is Put On Sale"),
+        ("is_instant_sale_price", "Is Instant Sale Price"),
+        ("is_unlock_purchase", "Is Unlock Purchase")
+    ]
+    sale_type = models.CharField(max_length=40, choices=choices)
     is_removed = models.BooleanField(default=False)
     collection_id = models.ForeignKey(Collection, related_name="item_collection", on_delete=models.CASCADE, null=True)
     created_by = models.ForeignKey(CustomUser, related_name="item_user", on_delete=models.CASCADE, null=True)
@@ -115,5 +118,5 @@ class FAQ(models.Model):
     is_active = models.BooleanField(default=True)
     category = models.TextField(null=True)
     # field issue resolved by staff member
-    resolved_by = models.ForeignKey(User, related_name="resolved_user", on_delete=models.CASCADE, null=True)
+    resolved_by = models.ForeignKey(User, related_name="FAQ_user", on_delete=models.CASCADE, null=True)
 
